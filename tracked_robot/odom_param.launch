@@ -1,0 +1,12 @@
+<launch>
+<rosparam param="odom_R">0.06828</rosparam>
+<rosparam param="odom_W">0.6343</rosparam>
+<!-- 0.84112 -->
+
+<!-- include Motor -->
+<node name="Motor_controller" pkg="tracked_robot" type="Motor_node" required="true" ></node>
+<!-- include Odometry -->
+<node name="Odometry" pkg="tracked_robot" type="Odometry" required="true" output="screen" ></node>
+<!-- launch cmd_vel controller -->
+<!-- <node name="cirlab_trackings" pkg="move" type="Tracked_gogo" output="screen"></node> -->
+</launch>
