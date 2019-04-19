@@ -13,7 +13,7 @@
 #include "std_msgs/Int32MultiArray.h"
 #include "std_msgs/Int32.h"
 #include "std_msgs/Float64.h"
-#include <dynamixel_workbench_msgs/JointCommand.h>
+// #include <dynamixel_workbench_msgs/JointCommand.h>
 
 
 #define PI 3.14
@@ -46,8 +46,8 @@ int main(int argc, char **argv)
 	ros::Publisher pub12 = n.advertise<std_msgs::Float64>("head_top", 100);
 	ros::Publisher pub13 = n.advertise<std_msgs::Float64>("head_bottom", 100);
 
-	ros::ServiceClient joint_command_client =
-                n.serviceClient<dynamixel_workbench_msgs::JointCommand>("joint_command");
+	// ros::ServiceClient joint_command_client =
+  //               n.serviceClient<dynamixel_workbench_msgs::JointCommand>("joint_command");
 		
 //---robot_motion---
 //1=fwd
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 		std_msgs::Int32MultiArray robot_speed,leg_speed,robot_MA,leg_MA,robot_HO,robot_VA,robot_MR,leg_HO,leg_VA;
 		std_msgs::Int32 robot_motion,leg_motion;
 		std_msgs::Float64 head_top,head_bottom;
-		dynamixel_workbench_msgs::JointCommand joint_command;
+		// dynamixel_workbench_msgs::JointCommand joint_command;
 
 		robot_speed.data.clear();
 		leg_speed.data.clear();
@@ -396,17 +396,7 @@ int main(int argc, char **argv)
 					ros::spinOnce();
 				}
 
-			/*if (act == 1)
-				bodyact("fwd");
-			else if (act == 2)
-				bodyact("back");
-			else if (act == 3)
-				bodyact("left");
-			else if (act == 4)
-				bodyact("right");
-			else if (act == 0)
-				bodyact("stop");
-			*/
+
 
 		}
 
@@ -434,102 +424,6 @@ int main(int argc, char **argv)
       }
       
 
-		else if(y==57)//9	xtion return home
-		{
-			bottomm=bottom;topp=top;
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 1;
-  			joint_command.request.goal_position = bottomm*PI/180;
-			joint_command_client.call(joint_command);
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 2;
-  			joint_command.request.goal_position = topp*PI/180;
-			joint_command_client.call(joint_command);
-			// head_bottom.data=bottom;
-			// head_top.data=top;
-			// pub13.publish(head_bottom);
-			// pub12.publish(head_top);
-			printf("xtion pos_init\n");
-			ROS_INFO("bottom:%f,top:%f", bottomm,top);
-			ros::spinOnce();
-		}
-		else if(y==105)//i	xtion turn left
-		{	
-			bottomm=bottomm+10;
-			// head_bottom.data=bottomm;
-			// head_top.data=topp;
-			// pub13.publish(head_bottom);
-			// pub12.publish(head_top);
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 1;
-  			joint_command.request.goal_position = bottomm*PI/180;
-			joint_command_client.call(joint_command);
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 2;
-  			joint_command.request.goal_position = topp*PI/180;
-			joint_command_client.call(joint_command);
-			printf("xtion turn left\n");
-			ROS_INFO("bottom:%f,top:%f", bottomm,top);
-			ros::spinOnce();
-		}
-		else if(y==112)//p	xtion turn right
-		{	
-			bottomm=bottomm-10;
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 1;
-  			joint_command.request.goal_position = bottomm*PI/180;
-			joint_command_client.call(joint_command);
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 2;
-  			joint_command.request.goal_position = topp*PI/180;
-			joint_command_client.call(joint_command);
-			// head_bottom.data=bottomm;
-			// head_top.data=topp;
-			// pub13.publish(head_bottom);
-			// pub12.publish(head_top);
-			printf("xtion turn right\n");
-			ROS_INFO("bottom:%f,top:%f", bottomm,top);
-			ros::spinOnce();
-		}
-		else if(y==111)//o	xtion turn up
-		{
-			topp=topp+10;
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 1;
-  			joint_command.request.goal_position = bottomm*PI/180;
-			joint_command_client.call(joint_command);
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 2;
-  			joint_command.request.goal_position = topp*PI/180;
-			joint_command_client.call(joint_command);
-			// head_bottom.data=bottomm;
-			// head_top.data=topp;
-			// pub13.publish(head_bottom);
-			// pub12.publish(head_top);
-			printf("xtion turn up\n");
-			ROS_INFO("bottom:%f,top:%f", bottomm,top);		
-			ros::spinOnce();
-		}
-		else if(y==108)//l	xtion turn down
-		{
-			topp=topp-10;
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 1;
-  			joint_command.request.goal_position = bottomm*PI/180;
-			joint_command.request.unit = "rad";
- 			joint_command.request.id = 2;
-  			joint_command.request.goal_position = topp*PI/180;
-			joint_command_client.call(joint_command);
-			// head_bottom.data=bottomm;
-			// head_top.data=topp;
-			// pub13.publish(head_bottom);
-			// pub12.publish(head_top);
-			printf("xtion turn down\n");
-			ROS_INFO("bottom:%f,top:%f", bottomm,top);
-			ros::spinOnce();
-		}
-		
-
 		printf("speed_left = %d , speed_right = %d \n",vv1,vv2);
 		loop_rate.sleep();
 		
@@ -537,99 +431,5 @@ int main(int argc, char **argv)
 
 	return 0;
 }
-
-
-/*--robot_MA publish--*/
-/*
-int r_MA[2];//robot_MA
-				
-r_MA[0]=-26000;
-r_MA[1]=-27000;
-for (int i = 0; i < 2; i++)
-{
-	robot_MA.data.push_back(r_MA[i]);
-}
-pub3.publish(robot_MA);
-printf("robot_MA publish\n");
-			
-ros::spinOnce();
-*/
-
-/*--robot_HO publish--*/
-/*
-int r_HO[2];//robot_HO
-				
-r_HO[0]=0;
-r_HO[1]=0;
-
-for (int i = 0; i < 2; i++)
-{
-	robot_HO.data.push_back(r_HO[i]);
-}
-pub5.publish(robot_HO);
-printf("robot_HO publish\n");
-ros::spinOnce();
-*/
-
-/*--robot_VA publish--*/
-/*
-int r_VA[2];//robot_VA
-				
-r_VA[0]=300;
-r_VA[1]=300;
-for (int i = 0; i < 2; i++)
-{
-	robot_VA.data.push_back(r_VA[i]);
-}
-pub6.publish(robot_VA);
-printf("robot_VA publish\n");
-ros::spinOnce();
-*/
-
-/*--lef_HO publish--*/
-/*
-int l_HO[2];//leg_HO
-				
-l_HO[0]=0;
-l_HO[1]=0;
-
-for (int i = 0; i < 2; i++)
-{
-	leg_HO.data.push_back(l_HO[i]);
-}
-pub9.publish(leg_HO);
-printf("leg_HO publish\n");
-ros::spinOnce();
-*/
-
-/*--leg_VA publish--*/
-/*
-int l_VA[2];//leg_VA
-				
-l_VA[0]=300;
-l_VA[1]=300;
-for (int i = 0; i < 2; i++)
-{
-	leg_VA.data.push_back(l_VA[i]);
-}
-pub10.publish(leg_VA);
-printf("leg_VA publish\n");
-ros::spinOnce();
-*/	
-
-/*--robot_MR publish--*/
-/*
-int r_MR[2];//robot_MR
-				
-r_MR[0]=300;
-r_MR[1]=300;
-for (int i = 0; i < 2; i++)
-{
-	robot_MR.data.push_back(r_MR[i]);
-}
-pub11.publish(robot_MR);
-printf("robot_MR publish\n");
-ros::spinOnce();
-*/
 
 
